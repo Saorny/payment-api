@@ -4,29 +4,28 @@ import { Injectable } from '@nestjs/common';
 import { AppLogger } from '../../modules/shared/service/applogger.service';
 import { Seeder } from '../../modules/common/seeder.service';
 import { dataToSeed, CustomerSeederInterface } from './data';
-import { Product } from 'src/database/entities/product.entity';
 import { Customer } from 'src/database/entities/customer';
 
 @Injectable()
-export class CustomerSeederService extends Seeder<Product> {
+export class CustomerSeederService extends Seeder<Customer> {
   protected logger: AppLogger;
 
   constructor(
-    @InjectRepository(Product)
-    private readonly productRepository: Repository<Product>,
+    @InjectRepository(Customer)
+    private readonly customerRepository: Repository<Customer>,
   ) {
-    super(productRepository);
-    this.logger = new AppLogger('', 'product', 'seeder');
+    super(customerRepository);
+    this.logger = new AppLogger('', 'customer', 'seeder');
   }
 
-  public async seed(): Promise<Product[]> {
-    const products = await this.search({});
+  public async seed(): Promise<Customer[]> {
+    const customers = await this.search({});
 
-    return products.length === 0 ? this.init() : products;
+    return customers.length === 0 ? this.init() : customers;
   }
 
-  protected async init(): Promise<Product[]> {
-    const products: Product[] = [];
+  protected async init(): Promise<Customer[]> {
+    const customers: Customer[] = [];
 
     await Promise.all(
       dataToSeed.map(async (data: CustomerSeederInterface) => {
@@ -36,6 +35,6 @@ export class CustomerSeederService extends Seeder<Product> {
         return this.save(customer);
       }),
     );
-    return products;
+    return customers;
   }
 }
