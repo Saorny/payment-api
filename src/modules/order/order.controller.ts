@@ -17,6 +17,7 @@ import { Request } from 'express';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { Order } from 'src/database/entities/order.entity';
 import { PaymentOrderDto } from './dto/payment-order.dto';
+import { IdemPotentGuard } from 'src/guards/idempotent';
 
 @Controller('orders')
 @ApiTags('Order')
@@ -37,7 +38,7 @@ export class OrderController {
     return this.ordersService.getOrders(req.user as AuthCustomer);
   }
 
-  @UseGuards(JwtAuthGuard, CustomerAuthGuard)
+  @UseGuards(JwtAuthGuard, CustomerAuthGuard, IdemPotentGuard)
   @Post()
   @ApiOperation({ summary: 'Submit Order' })
   @ApiOkResponse()

@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CustomerModule } from './modules/customer/customer.module';
 import { WinstonModule } from 'nest-winston';
 import * as winston from 'winston';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import * as winston from 'winston';
     ProductModule,
     SharedModule,
     CustomerModule,
+    SeederModule,
     TypeOrmModule.forRootAsync({
       imports: [SharedModule],
       useFactory: () => ConfigService.redisConfig,

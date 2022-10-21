@@ -13,6 +13,7 @@ import { TransformInterceptor } from './interceptors/transform.interceptor';
 import compression from 'compression';
 import path from 'path';
 import bodyParser from 'body-parser';
+import * as Seeder from './seed';
 
 async function bootstrap(): Promise<any> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -60,6 +61,7 @@ async function bootstrap(): Promise<any> {
   setupSwagger(app);
   await app.listen(config.app.port);
   generateKeys();
+  await Seeder.seed(app);
 }
 
 bootstrap();

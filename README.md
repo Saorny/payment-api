@@ -8,7 +8,7 @@ Welcome to Api Payment Demo
 - mysql (if running locally)
 - nodejs -> nvm use 14.18.0
 - typescript
-- docker
+- redis
 
 ## Installation
 
