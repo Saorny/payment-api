@@ -1,3 +1,5 @@
+import { Encryptor } from 'src/util/encryptor.interface';
+
 export interface CustomerSeederInterface {
   phoneNumber: string;
   name: string;
@@ -6,7 +8,7 @@ export interface CustomerSeederInterface {
 
 export const dataToSeed: CustomerSeederInterface[] = [
   {
-    phoneNumber: '18318171151',
+    phoneNumber: Encryptor.encrypt('18318171151'),
     name: 'Remi',
     email: 'remi.bartel@mobilenowgroup.com',
   },
